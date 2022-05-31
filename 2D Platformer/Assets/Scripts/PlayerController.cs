@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class PlayerController : MonoBehaviour
 {
@@ -9,6 +10,8 @@ public class PlayerController : MonoBehaviour
     [SerializeField] private float moveSpeed, jumpForce, invulnerableDuration;
     private bool isJumping, isVulnerable;
     private int money, hp;
+    [SerializeField] private Text moneyText;
+    [SerializeField] private GameObject deathScreen;
 
     private void Start()
     {
@@ -33,6 +36,11 @@ public class PlayerController : MonoBehaviour
         {
             moveSpeed = 2;
             jumpForce = 40;
+        }
+
+        if(hp <= 0)
+        {
+            deathScreen.SetActive(true);
         }
     }
 
@@ -70,10 +78,11 @@ public class PlayerController : MonoBehaviour
         if(collision.tag == "Coin")
         {
             money++;
-            Debug.Log("Money: " + money.ToString());
+            moneyText.text = "Objects shoved: " + money.ToString();
+
         }
 
-        if(collision.tag == "Trap" && isVulnerable)
+        if (collision.tag == "Trap" && isVulnerable)
         {
             hp--;
             Debug.Log("Health: " + hp.ToString());
