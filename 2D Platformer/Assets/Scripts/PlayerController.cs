@@ -12,9 +12,11 @@ public class PlayerController : MonoBehaviour
     private int money, hp;
     [SerializeField] private Text moneyText;
     [SerializeField] private GameObject deathScreen;
+    public AudioSource coin, jump, death;
 
     private void Start()
     {
+        Time.timeScale = 1;
         playerBody = GetComponent<Rigidbody2D>();
         money = 0;
         hp = 3;
@@ -41,6 +43,7 @@ public class PlayerController : MonoBehaviour
         if(hp <= 0)
         {
             deathScreen.SetActive(true);
+            Time.timeScale = 0;
         }
     }
 
@@ -65,6 +68,7 @@ public class PlayerController : MonoBehaviour
         if (moveVertical > 0.1f && !isJumping)
         {
             playerBody.AddForce(new Vector2(0f, moveVertical * jumpForce), ForceMode2D.Impulse);
+            jump.Play();
         }
     }
 
@@ -78,12 +82,13 @@ public class PlayerController : MonoBehaviour
         if(collision.tag == "Coin")
         {
             money++;
-            moneyText.text = "Objects shoved: " + money.ToString();
-
+            moneyText.text = "Objects that i shoved up my ass: " + money.ToString();
+            coin.Play();
         }
 
         if (collision.tag == "Trap" && isVulnerable)
         {
+            /*
             hp--;
             Debug.Log("Health: " + hp.ToString());
 
@@ -92,7 +97,12 @@ public class PlayerController : MonoBehaviour
             if(hp <= 0)
             {
                 Debug.Log("YOU DIED!!!");
+                death.Play();
             }
+            */
+
+            hp = 0;
+            death.Play();
         }
     }
 
