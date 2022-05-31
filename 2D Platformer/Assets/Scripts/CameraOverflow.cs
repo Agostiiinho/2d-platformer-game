@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class CameraOverflow : MonoBehaviour
 {
-    private Vector3 offset = new Vector3(0f, 3f, -10f);
+    private Vector3 offset = new Vector3(0f, 2f, -10f);
     private Vector3 velocity = Vector3.zero;
     private float smoothTime = 0.25f;
     [SerializeField] private Transform target;
