@@ -11,7 +11,7 @@ public class PlayerController : MonoBehaviour
     private bool isJumping, isVulnerable;
     private int money, hp;
     [SerializeField] private Text moneyText;
-    [SerializeField] private GameObject deathScreen;
+    [SerializeField] private GameObject deathScreen, winScreen;
     public AudioSource coin, jump, death;
 
     private void Start()
@@ -103,6 +103,12 @@ public class PlayerController : MonoBehaviour
 
             hp = 0;
             death.Play();
+        }
+
+        if(collision.tag == "Finisher")
+        {
+            winScreen.SetActive(true);
+            Time.timeScale = 0;
         }
     }
 
